@@ -1,0 +1,59 @@
+1.
+select tracks.Name
+from tracks
+where albumid in (select albumid
+                 from albums
+                 where albums.title="Californication")
+                 
+2.
+select count (i.customerid)
+,c.firstname
+,c.lastname
+,c.city
+,c.email
+from customers c inner join invoices i
+on c.customerid=i.customerid
+group by i.customerid
+
+3.
+select a.artistid
+,alb.title
+,t.name
+,t.trackid
+from artists a inner join albums alb using(artistid) inner join tracks t using (albumid)
+
+
+4.
+select employeeid
+,lastname
+,firstname
+,reportsto
+,title
+from employees
+
+5.
+select a.name 
+,alb.title
+,(a.artistid)
+from artists a left join albums alb
+on a.artistid=alb.artistid
+where alb.artistid is null
+
+6.
+select firstname
+,lastname
+from employees 
+union 
+select firstname
+,lastname
+from customers 
+order by lastname desc
+
+7.
+select c.city,
+c.lastname
+,c.firstname
+,i.billingcity
+from customers c left join invoices i
+on c.customerid=i.customerid
+where c.city<>i.billingcity
